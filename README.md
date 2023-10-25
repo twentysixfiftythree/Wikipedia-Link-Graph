@@ -18,4 +18,3 @@ Creates a 'directed' graph from a given Wikipedia URL, following links up to a s
 ## Notes
 The create_wikipedia_graph function uses a depth-first search algorithm to traverse the links.
 The script may take a considerable amount of time to run, especially for higher depth values, as it needs to send HTTP requests and parse HTML for each linked Wikipedia page.
-The Wikipedia pages' structure might change, and if that happens, the script might not work as expected. Always ensure that the script is compatible with the current Wikipedia page structure.
