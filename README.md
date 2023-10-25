@@ -1,5 +1,5 @@
 # Wikipedia-Link-Graph
-##Description
+## Description
 This script is designed to create a directed graph based on Wikipedia links starting from a given URL. It fetches links from the introductory section and subsections of a Wikipedia page, adds them to a directed graph, and visualizes the network using PyVis. Additionally, it demonstrates the capability of converting the graph to an adjacency matrix.
 
 
