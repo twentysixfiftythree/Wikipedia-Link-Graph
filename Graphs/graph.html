@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "red", "id": "Spelunky 2", "label": "Spelunky 2", "shape": "dot", "size": 30, "title": "Spelunky 2"}, {"color": "#97c2fc", "id": "Platformer", "label": "Platformer", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "BlitWorks", "label": "BlitWorks", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "2D computer graphics", "label": "2D computer graphics", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Olmec religion", "label": "Olmec religion", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Derek Yu", "label": "Derek Yu", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Metacritic", "label": "Metacritic", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Action game", "label": "Action game", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Player character", "label": "Player character", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Isometric video game graphics", "label": "Isometric video game graphics", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Donkey Kong (arcade game)", "label": "Donkey Kong (arcade game)", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "List of platform game series", "label": "List of platform game series", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Video game developer", "label": "Video game developer", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Barcelona", "label": "Barcelona", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Sonic CD", "label": "Sonic CD", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Computer-generated imagery", "label": "Computer-generated imagery", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Digital image", "label": "Digital image", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "2D geometric model", "label": "2D geometric model", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Video display controller", "label": "Video display controller", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Graphical user interface", "label": "Graphical user interface", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Olmecs", "label": "Olmecs", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Mesoamerica", "label": "Mesoamerica", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Shamanism", "label": "Shamanism", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Olmec influences on Mesoamerican cultures", "label": "Olmec influences on Mesoamerican cultures", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Template:Religion topics", "label": "Template:Religion topics", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Video game design", "label": "Video game design", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Game art design", "label": "Game art design", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Atari 2600", "label": "Atari 2600", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Eternal Daughter", "label": "Eternal Daughter", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Boss Fight Books", "label": "Boss Fight Books", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "File:Metacritic logo original.svg", "label": "File:Metacritic logo original.svg", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "IMDb", "label": "IMDb", "shape": "dot", "size": 10}, {"color": "#97c2fc", "id": "Wikidata", "label": "Wikidata", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"from": "Spelunky 2", "to": "Platformer", "width": 1}, {"from": "Spelunky 2", "to": "BlitWorks", "width": 1}, {"from": "Spelunky 2", "to": "2D computer graphics", "width": 1}, {"from": "Spelunky 2", "to": "Olmec religion", "width": 1}, {"from": "Spelunky 2", "to": "Derek Yu", "width": 1}, {"from": "Spelunky 2", "to": "Metacritic", "width": 1}, {"from": "Platformer", "to": "Action game", "width": 1}, {"from": "Platformer", "to": "Player character", "width": 1}, {"from": "Platformer", "to": "Isometric video game graphics", "width": 1}, {"from": "Platformer", "to": "Donkey Kong (arcade game)", "width": 1}, {"from": "Platformer", "to": "List of platform game series", "width": 1}, {"from": "BlitWorks", "to": "Video game developer", "width": 1}, {"from": "BlitWorks", "to": "Barcelona", "width": 1}, {"from": "BlitWorks", "to": "Sonic CD", "width": 1}, {"from": "2D computer graphics", "to": "Computer-generated imagery", "width": 1}, {"from": "2D computer graphics", "to": "Digital image", "width": 1}, {"from": "2D computer graphics", "to": "2D geometric model", "width": 1}, {"from": "2D computer graphics", "to": "Video display controller", "width": 1}, {"from": "2D computer graphics", "to": "Graphical user interface", "width": 1}, {"from": "Olmec religion", "to": "Olmecs", "width": 1}, {"from": "Olmec religion", "to": "Mesoamerica", "width": 1}, {"from": "Olmec religion", "to": "Shamanism", "width": 1}, {"from": "Olmec religion", "to": "Olmec influences on Mesoamerican cultures", "width": 1}, {"from": "Olmec religion", "to": "Template:Religion topics", "width": 1}, {"from": "Derek Yu", "to": "Video game design", "width": 1}, {"from": "Derek Yu", "to": "Game art design", "width": 1}, {"from": "Derek Yu", "to": "Atari 2600", "width": 1}, {"from": "Derek Yu", "to": "Eternal Daughter", "width": 1}, {"from": "Derek Yu", "to": "Boss Fight Books", "width": 1}, {"from": "Metacritic", "to": "File:Metacritic logo original.svg", "width": 1}, {"from": "Metacritic", "to": "IMDb", "width": 1}, {"from": "Metacritic", "to": "Wikidata", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
