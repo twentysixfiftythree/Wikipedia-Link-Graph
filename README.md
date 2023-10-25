@@ -6,13 +6,13 @@ This script is designed to create a directed graph based on Wikipedia links star
 
 
 ## Functions
-get_links_from_wikipedia(url, n=5)
+get_links_from_wikipedia(url, n)
 Fetches the first n links from each subsection of the wikipedia page.
 
 get_title_from_url(url)
 Fetches the title of a Wikipedia page using its URL.
 
-create_wikipedia_graph(root_url, depth=1)
+create_wikipedia_graph(root_url, depth)
 Creates a 'directed' graph from a given Wikipedia URL, following links up to a specified depth. The graph is visualized using PyVis.
 
 ## Notes
